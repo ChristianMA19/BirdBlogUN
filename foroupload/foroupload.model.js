@@ -10,6 +10,8 @@ const postSchema = mongoose.Schema(
     location: { type: String, required: [true] },
     scientificName: { type: String, required: [true] },
     commonName: { type: String, required: [true] },
+    Familly: { type: String, required: [true] },
+    order: { type: String, required: [true] },
     description: { type: String, required: [true] },
     inDanger: { type: Boolean},
     urlPhoto: { type: String, required: [true] },
