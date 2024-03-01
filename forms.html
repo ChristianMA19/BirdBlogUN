@@ -1,4 +1,5 @@
 <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script type="module">
 
@@ -111,12 +112,36 @@
             });
     });
 
+    $(document).ready(function(){
+    $('#scientificName').on('input', function() {
+        var input = $(this).val();
+        if (input) {
+            $.ajax({
+                url: 'http://localhost:8080/suggestions/' + input,
+                method: 'GET',
+                success: function(response) {
+                    $('#suggestions').html(response.map(suggestion => `<div>${suggestion}</div>`).join('')).show();
+                }
+            });
+        } else {
+            $('#suggestions').hide();
+        }
+    });
+
+    $(document).on('click', '#suggestions div', function(){
+        $('#scientificName').val($(this).text());
+        $('#suggestions').hide();
+    });
+});
+
 </script>
 
 <!-- Formulario -->
 <form id="form">
     <label for="scientificName">Nombre cientifico:</label><br>
     <input type="text" id="scientificName" name="scientificName"><br><br>
+    <!-- Agregar el contenedor de sugerencias -->
+    <div id="suggestions"></div>
     <label for="commonName">Nombre comun:</label><br>
     <input type="text" id="commonName" name="commonName"><br><br>
     <label for="author">Autor:</label><br>
@@ -136,5 +161,6 @@
     <!-- submit the chosen file -->
     <button id="submit" type="submit" name="button">Subir</button>
 </form>
+
 
 <!-- recordar ver que pasa si dos personas montan una foto con el mismo nombre -->

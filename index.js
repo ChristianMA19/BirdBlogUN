@@ -32,8 +32,8 @@ app.use(express.json());
 import forouploadRouters from './foroupload/foroupload.router.js'
 app.use('/foroupload', forouploadRouters)
 
-// import usuariosRoutes from './usuarios/usuarios.routes'
-// app.use('/usuarios', usuariosRoutes)
+import birdsRouters from './suggestions/suggestions.router.js'
+app.use('/suggestions', birdsRouters)
 
 // import restaurantesRoutes from './restaurantes/restaurantes.routes'
 // app.use('/restaurantes', restaurantesRoutes)
