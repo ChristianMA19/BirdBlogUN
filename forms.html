@@ -6,76 +6,135 @@
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-analytics.js";
 
+    function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+    }
     const config = {
-    apiKey: "AIzaSyCx4P-M8e6M-njQQ8x5_HlHIZN2VNZtfNk",
-    authDomain: "aves-a1081.firebaseapp.com",
-    databaseURL: "https://aves-a1081-default-rtdb.firebaseio.com",
-    projectId: "aves-a1081",
-    storageBucket: "aves-a1081.appspot.com",
-    messagingSenderId: "176518929787",
-    appId: "1:176518929787:web:7b9a24b4bdd38f5f78b1de",
-    measurementId: "G-PB7JDN6Z7S"
+        apiKey: "AIzaSyCx4P-M8e6M-njQQ8x5_HlHIZN2VNZtfNk",
+        authDomain: "aves-a1081.firebaseapp.com",
+        databaseURL: "https://aves-a1081-default-rtdb.firebaseio.com",
+        projectId: "aves-a1081",
+        storageBucket: "aves-a1081.appspot.com",
+        messagingSenderId: "176518929787",
+        appId: "1:176518929787:web:7b9a24b4bdd38f5f78b1de",
+        measurementId: "G-PB7JDN6Z7S"
     };
-    
+
     firebase.initializeApp(config);
 
-    var selectedFile;
-    function getfile() {
-        var pic = document.getElementById("photo");
-        // selected file is that file which user chosen by html form
-        selectedFile = pic.files[0];
-        // make save button disabled for few seconds that has id='submit_link'
-        document.getElementById('submit_link').setAttribute('disabled', 'true');
-        myfunction(); // call below written function
+    // Función para mostrar la vista previa de la foto
+    function previewPhoto() {
+        // Obtener la foto seleccionada
+        const photo = document.getElementById("photo").files[0];
+        // Crear un objeto URL para la foto seleccionada
+        const objectUrl = URL.createObjectURL(photo);
+        // Mostrar la vista previa de la foto
+        document.getElementById("photoPreview").src = objectUrl;
     }
 
-    function myfunction() {
-        // select unique name for everytime when image uploaded
-        // Date.now() is function that give current timestamp
-        var name = "123" + Date.now();
-        // make ref to your firebase storage and select images folder
-        var storageRef = firebase.storage().ref('/images/' + name);
-        // put file to firebase 
-        var uploadTask = storageRef.put(selectedFile);
-        // all working for progress bar that in html
-        // to indicate image uploading... report
-        uploadTask.on('state_changed', function(snapshot){
-            var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-            var uploader = document.getElementById('uploader');
-            uploader.value = progress;
-            switch (snapshot.state) {
-                case firebase.storage.TaskState.PAUSED:
-                    console.log('Upload is paused');
-                    break;
-                case firebase.storage.TaskState.RUNNING:
-                    console.log('Upload is running');
-                    break;
-            }
-        }, function(error) {
-            console.log(error);
-        }, function() {
-            // get the uploaded image url back
-            uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-                // You get your url from here
-                console.log('File available at', downloadURL);
-                // print the image url 
-                console.log(downloadURL);
-                document.getElementById('submit_link').removeAttribute('disabled');
-            });
-        });
-    };
-
+    // Listener para el cambio en el campo de selección de foto
     document.getElementById("photo").addEventListener("change", function() {
-        getfile();
+        previewPhoto();
+    });
+
+    document.getElementById("form").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        // Recopilar datos del formulario
+        const scientificName = document.getElementById("scientificName").value;
+        const commonName = document.getElementById("commonName").value;
+        const author = document.getElementById("author").value;
+        const location = document.getElementById("location").value;
+        const family = document.getElementById("family").value;
+        const order = document.getElementById("order").value;
+        const description = document.getElementById("description").value;
+
+        // Obtener la foto seleccionada
+        const photo = document.getElementById("photo").files[0];
+
+        // Crear referencia al almacenamiento de Firebase
+        var storageRef = firebase.storage().ref('/images/'+ getRandomInt(9999) + photo.name );
+
+        // Subir la foto al almacenamiento de Firebase
+        var uploadTask = storageRef.put(photo);
+
+        // Monitorizar el progreso de la carga de la foto
+        uploadTask.on('state_changed',
+            function(snapshot) {
+                // Progreso de la carga
+                var progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                console.log('Upload is ' + progress + '% done');
+            },
+            function(error) {
+                // Manejar errores de carga
+                console.error('Upload failed:', error);
+            },
+            function() {
+                // Cuando la carga se completa con éxito, obtener el enlace de descarga de la foto
+                uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+                    // Construir objeto con los datos del formulario y el enlace de descarga de la foto
+                    const formData = {
+                        scientificName: scientificName,
+                        commonName: commonName,
+                        author: author,
+                        location: location,
+                        family: family,
+                        order: order,
+                        description: description,
+                        urlPhoto: downloadURL,
+                    };
+
+                    console.log(formData);
+
+                    // Enviar datos del formulario al servidor
+                    fetch('http://localhost:8080/foroupload/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify(formData)
+                        })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Network response was not ok');
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            console.log('Success:', data);
+                            // Aquí puedes agregar cualquier lógica adicional después de enviar el formulario
+                        })
+                        .catch(error => {
+                            console.error('Error:', error);
+                        });
+                });
+            });
     });
 
 </script>
 
 <!-- Formulario -->
-<form>
-    <progress value="0" id="uploader" max="100">0%</progress><br><br>
+<form id="form">
+    <label for="scientificName">Nombre cientifico:</label><br>
+    <input type="text" id="scientificName" name="scientificName"><br><br>
+    <label for="commonName">Nombre comun:</label><br>
+    <input type="text" id="commonName" name="commonName"><br><br>
+    <label for="author">Autor:</label><br>
+    <input type="text" id="author" name="author"><br><br>
+    <label for="location">Ubicacion:</label><br>
+    <input type="text" id="location" name="location"><br><br>
+    <label for="Familly">Familia:</label><br>
+    <input type="text" id="family" name="family"><br><br>
+    <label for="order">Orden:</label><br>
+    <input type="text" id="order" name="order"><br><br>
+    <label for="description">Descripcion:</label><br>
+    <input type="text" id="description" name="description"><br><br>
+    <!-- Vista previa de la foto -->
+    <img id="photoPreview" src="" alt="Photo Preview" style="max-width: 200px;"><br><br>
     <!-- get the file from user -->
-    <input id="photo" class="file" type="file" name="mainimage" value="" ><br><br>
+    <input id="photo" class="file" type="file" name="mainimage" value=""><br><br>
     <!-- submit the chosen file -->
-    <button id="submit_link" type="submit" name="button">Save</button>
+    <button id="submit" type="submit" name="button">Subir</button>
 </form>
+
+<!-- recordar ver que pasa si dos personas montan una foto con el mismo nombre -->
