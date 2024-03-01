@@ -7,6 +7,7 @@ const birdSchema = mongoose.Schema(
     English: { type: String, required: [true] },
     BLFamilyEnglish: { type: String, required: [true] },
     IOCOrder: { type: String, required: [true] },
+    RedListcategory: { type: String, required: [true] },
   },
 );
 

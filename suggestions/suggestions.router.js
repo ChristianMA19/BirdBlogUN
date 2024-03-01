@@ -1,4 +1,4 @@
-import { scientificname , commonname,family,order} from "./suggestions.controller.js";
+import { scientificname , commonname,family,order,redlistcategory} from "./suggestions.controller.js";
 import {Router} from 'express';
 const router = Router();
 
@@ -7,6 +7,7 @@ const router = Router();
  router.get('/common/:input', commonname );
  router.get('/family/:input', family );
  router.get('/order/:input', order );
+ router.get('/redlist/:input', redlistcategory );
 
 // Endpoint POST /prueba
 //router.post('/', createpost );

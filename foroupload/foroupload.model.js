@@ -13,7 +13,7 @@ const postSchema = mongoose.Schema(
     family: { type: String, required: [true] },
     order: { type: String, required: [true] },
     description: { type: String, required: [true] },
-    inDanger: { type: Boolean, default: false},
+    inDanger: { type: Number, default: false},
     urlPhoto: { type: String, required: [true] },
     reportsCount: { type: Number, default: 0},
     isDisable: { type: Boolean, default: false },

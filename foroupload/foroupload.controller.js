@@ -1,21 +1,21 @@
 import aves from '../avesLearn/aves.js';
 import Posts from './foroupload.model.js';
+import axios from 'axios';
+
 
 export async function createpost(req, res) {
   try {
     const post = req.body;
-    console.log(req.body);
     const pajaro = await aves(post.urlPhoto);
     if(pajaro){
-      console.log('es un pajaro');
       post.isDisable=false;
     }else{
-      console.log('no es un pajaro');
       post.isDisable=true;
     }
-    console.log(post);
+    //get endanger
+    const redListResponse = await axios.get('http://localhost:8080/suggestions/redlist/' + post.scientificName);
+    post.inDanger=redListResponse.data;
     const postup = new Posts(post);
-    console.log(postup);
     const resultado = await postup.save();
     res.status(200).json(resultado);
   } catch (err) {

@@ -80,3 +80,24 @@ export async function order(req, res) {
         res.status(500).send('Error al buscar sugerencias');
     }
 }
+
+export async function redlistcategory(req, res) {
+    const input = req.params.input;
+    
+    try {
+        const bird = await birds.find({ Scientific: input });
+        if(bird[0].RedListcategory == "DD" || bird[0].RedListcategory == "LC" || bird[0].RedListcategory == "NT" || bird[0].RedListcategory == "NE"){
+            //Sin peligro
+            res.json(0);
+        }else if(bird[0].RedListcategory == "VU" || bird[0].RedListcategory == "EN" || bird[0].RedListcategory == "CR"){
+            //En peligro
+            res.json(1);
+        }else{
+            //Extinct
+            res.json(2);
+        }
+    } catch (error) {
+        console.error('Error al buscar sugerencias:', error);
+        res.status(500).send('Error al buscar sugerencias');
+    }
+}
