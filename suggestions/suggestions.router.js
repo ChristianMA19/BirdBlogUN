@@ -1,9 +1,12 @@
-import { scientificname} from "./suggestions.controller.js";
+import { scientificname , commonname,family,order} from "./suggestions.controller.js";
 import {Router} from 'express';
 const router = Router();
 
 // // Endpoint GET /prueba
- router.get('/:input', scientificname );
+ router.get('/scientific/:input', scientificname );
+ router.get('/common/:input', commonname );
+ router.get('/family/:input', family );
+ router.get('/order/:input', order );
 
 // Endpoint POST /prueba
 //router.post('/', createpost );

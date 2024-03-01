@@ -111,29 +111,100 @@
                 });
             });
     });
-
+    // Función para mostrar las sugerencias de scientificName
     $(document).ready(function(){
-    $('#scientificName').on('input', function() {
-        var input = $(this).val();
-        if (input) {
-            $.ajax({
-                url: 'http://localhost:8080/suggestions/' + input,
-                method: 'GET',
-                success: function(response) {
-                    $('#suggestions').html(response.map(suggestion => `<div>${suggestion}</div>`).join('')).show();
-                }
-            });
-        } else {
+        $('#scientificName').on('input', function() {
+            var input = $(this).val();
+            if (input) {
+                $.ajax({
+                    url: 'http://localhost:8080/suggestions/scientific/' + input,
+                    method: 'GET',
+                    success: function(response) {
+                        $('#suggestions').html(response.map(suggestion => `<div>${suggestion}</div>`).join('')).show();
+                    }
+                });
+            } else {
+                $('#suggestions').hide();
+            }
+        });
+
+        $(document).on('click', '#suggestions div', function(){
+            $('#scientificName').val($(this).text());
             $('#suggestions').hide();
-        }
+        });
+
+    });
+    //funcion para mostrar las sugerencias de commonName
+    $(document).ready(function(){
+        $('#commonName').on('input', function() {
+            var input = $(this).val();
+            if (input) {
+                $.ajax({
+                    url: 'http://localhost:8080/suggestions/common/' + input,
+                    method: 'GET',
+                    success: function(response) {
+                        $('#suggestionscommon').html(response.map(suggestion => `<div>${suggestion}</div>`).join('')).show();
+                    }
+                });
+            } else {
+                $('#suggestionscommon').hide();
+            }
+        });
+
+        $(document).on('click', '#suggestionscommon div', function(){
+            $('#commonName').val($(this).text());
+            $('#suggestionscommon').hide();
+        });
+
     });
 
-    $(document).on('click', '#suggestions div', function(){
-        $('#scientificName').val($(this).text());
-        $('#suggestions').hide();
-    });
-});
+    //funcion para mostrar las sugerencias de family
+    $(document).ready(function(){
+        $('#family').on('input', function() {
+            var input = $(this).val();
+            if (input) {
+                $.ajax({
+                    url: 'http://localhost:8080/suggestions/family/' + input,
+                    method: 'GET',
+                    success: function(response) {
+                        $('#suggestionsfamily').html(response.map(suggestion => `<div>${suggestion}</div>`).join('')).show();
+                    }
+                });
+            } else {
+                $('#suggestionsfamily').hide();
+            }
+        });
 
+        $(document).on('click', '#suggestionsfamily div', function(){
+            $('#family').val($(this).text());
+            $('#suggestionsfamily').hide();
+        });
+
+    });
+
+    //funcion para mostrar las sugerencias de order
+    $(document).ready(function(){
+        $('#order').on('input', function() {
+            var input = $(this).val();
+            if (input) {
+                $.ajax({
+                    url: 'http://localhost:8080/suggestions/order/' + input,
+                    method: 'GET',
+                    success: function(response) {
+                        $('#suggestionsorder').html(response.map(suggestion => `<div>${suggestion}</div>`).join('')).show();
+                    }
+                });
+            } else {
+                $('#suggestionsorder').hide();
+            }
+        });
+
+        $(document).on('click', '#suggestionsorder div', function(){
+            $('#order').val($(this).text());
+            $('#suggestionsorder').hide();
+        });
+
+    });
 </script>
 
 <!-- Formulario -->
@@ -144,14 +215,20 @@
     <div id="suggestions"></div>
     <label for="commonName">Nombre comun:</label><br>
     <input type="text" id="commonName" name="commonName"><br><br>
+    <!-- Agregar el contenedor de sugerencias -->
+    <div id="suggestionscommon"></div>
     <label for="author">Autor:</label><br>
     <input type="text" id="author" name="author"><br><br>
     <label for="location">Ubicacion:</label><br>
     <input type="text" id="location" name="location"><br><br>
     <label for="Familly">Familia:</label><br>
     <input type="text" id="family" name="family"><br><br>
+    <!-- Agregar el contenedor de sugerencias -->
+    <div id="suggestionsfamily"></div>
     <label for="order">Orden:</label><br>
     <input type="text" id="order" name="order"><br><br>
+    <!-- Agregar el contenedor de sugerencias -->
+    <div id="suggestionsorder"></div>
     <label for="description">Descripcion:</label><br>
     <input type="text" id="description" name="description"><br><br>
     <!-- Vista previa de la foto -->
