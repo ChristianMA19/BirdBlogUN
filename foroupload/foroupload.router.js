@@ -1,9 +1,9 @@
-import { createpost} from "./foroupload.controller.js";
+import { createpost, getpost} from "./foroupload.controller.js";
 import {Router} from 'express';
 const router = Router();
 
 // // Endpoint GET /prueba
-// router.get('/', getpedidos );
+router.get('/', getpost );
 
 // Endpoint POST /prueba
 router.post('/', createpost );

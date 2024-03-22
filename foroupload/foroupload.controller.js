@@ -23,3 +23,14 @@ export async function createpost(req, res) {
     console.log(err);
   }
 }
+
+
+export async function getpost(req, res) {
+  try {
+    const posts = await Posts.find({ isDisable: false });
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(500).json(err);
+    console.error(err);
+  }
+}
