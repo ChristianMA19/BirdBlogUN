@@ -30,6 +30,7 @@ const Upload = () => {
         photoInput.removeEventListener("change", handleFileChange);
       };
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array ensures the effect runs once after initial render
 
   const handleFileChange = () => {
