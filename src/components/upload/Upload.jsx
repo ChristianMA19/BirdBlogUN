@@ -15,6 +15,8 @@ const Upload = () => {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
+  const [scientificNameSuggestions, setScientificNameSuggestions] = useState([]);
+  const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false);
 
   // Use useRef for file input
   const fileInputRef = useRef(null);
@@ -32,6 +34,28 @@ const Upload = () => {
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array ensures the effect runs once after initial render
+
+  useEffect(() => {
+    const fetchSuggestions = async () => {
+      try {
+        const response = await fetch(`https://birdblogun-d42wh7ajma-vp.a.run.app/suggestions/scientific/${formData.scientificName}`);
+        if (response.ok) {
+          const data = await response.json();
+          setScientificNameSuggestions(data);
+        } else {
+          throw new Error("Failed to fetch suggestions");
+        }
+      } catch (error) {
+        console.error("Error fetching suggestions:", error);
+      }
+    };
+
+    if (formData.scientificName.trim() !== "") {
+      fetchSuggestions();
+    } else {
+      setScientificNameSuggestions([]);
+    }
+  }, [formData.scientificName]);
 
   const handleFileChange = () => {
     const photoInput = fileInputRef.current;
@@ -102,6 +126,16 @@ const Upload = () => {
       ...prevData,
       [name]: value,
     }));
+
+    setIsSuggestionsVisible(true);
+  };
+
+  const handleSuggestionClick = (suggestion) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      scientificName: suggestion,
+    }));
+    setIsSuggestionsVisible(false);
   };
 
   const handleSubmit = (e) => {
@@ -135,8 +169,7 @@ const Upload = () => {
         });
         // Disable the submit button again
         document.getElementById("submit").setAttribute("disabled", "true");
-        // Reset form and file input after submission
-        formData.reset();
+        
         document.getElementById("photoPreview").src = "";
         setSelectedFile(null);
       })
@@ -162,6 +195,16 @@ const Upload = () => {
           value={formData.scientificName}
           onChange={handleInputChange}
         />
+        {isSuggestionsVisible && (
+          <ul>
+            {scientificNameSuggestions.map((suggestion, index) => (
+              <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
+                {suggestion}
+              </li>
+            ))}
+          </ul>
+        )}
+        <br />
         <br />
         <br />
         <label htmlFor="commonName">Nombre comun:</label>

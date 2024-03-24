@@ -1,9 +1,15 @@
+.contcont{
+    padding: 0.5rem;
+    margin: 1rem;
+    background-color: #b08a00;
+    border: black solid 0.1rem;
+}
 .container{
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: bolder;
+    border: black dashed 0.12rem;
     color: rgb(255, 255, 255);
     background-color: rgb(50, 158, 0);
-    margin-block: 1rem;
     padding: 1rem;
 }
 
