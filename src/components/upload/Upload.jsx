@@ -108,7 +108,7 @@ const Upload = () => {
     e.preventDefault();
     
     // Enviar datos del formulario al servidor
-    fetch("http://localhost:8080/foroupload/", {
+    fetch("https://birdblogun-d42wh7ajma-vp.a.run.app/foroupload/", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -136,7 +136,7 @@ const Upload = () => {
         // Disable the submit button again
         document.getElementById("submit").setAttribute("disabled", "true");
         // Reset form and file input after submission
-        e.currentTarget.reset();
+        formData.reset();
         document.getElementById("photoPreview").src = "";
         setSelectedFile(null);
       })

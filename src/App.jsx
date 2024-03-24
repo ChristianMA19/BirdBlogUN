@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Modal from "./components/modal"; // Adjust the path based on your project structure
 import Card from "./components/card";
+import styles from "./App.module.css"
 
 function App() {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -14,7 +15,7 @@ function App() {
     setModalVisible(false);
   };
   useEffect(() => {
-    fetch("")
+    fetch("https://birdblogun-d42wh7ajma-vp.a.run.app/foroupload/")
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -27,7 +28,7 @@ function App() {
       </div>
       {isModalVisible && <Modal onClose={handleCloseModal} />}
 
-      <div className="card-container">
+      <div className={styles.card_container}>
         {data.map((item, index) => (
           <Card
             key={index}
