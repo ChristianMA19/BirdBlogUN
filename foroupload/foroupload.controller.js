@@ -13,7 +13,7 @@ export async function createpost(req, res) {
       post.isDisable=true;
     }
     //get endanger
-    const redListResponse = await axios.get('http://localhost:8080/suggestions/redlist/' + post.scientificName);
+    const redListResponse = await axios.get("https://birdblogun-d42wh7ajma-vp.a.run.app/suggestions/redlist/" + post.scientificName);
     post.inDanger=redListResponse.data;
     const postup = new Posts(post);
     const resultado = await postup.save();
