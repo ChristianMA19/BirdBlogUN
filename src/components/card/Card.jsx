@@ -35,28 +35,28 @@ const Card = ({
     parsedDate.getMonth() + 1
   }/${parsedDate.getFullYear()}`;
   return (
-    <div className={styles.contcont}>
-      <div className={`${styles.container} ${backgroundColorClass}`}>
+    <div className={`${styles.contcont} ${backgroundColorClass}`}>
+      <div className={styles.container}>
         <div className={styles.title}>{title}</div>
         <div className="imgcont">
           <img className={styles.img} src={imgurl} alt="img" />
         </div>
         <div className={styles.cardinfo}>
           <div className={styles.birdinfo}>
-            <div className="name">Common Name: {name}</div>
-            <div className="family">Family: {family}</div>
-            <div className="order">Order: {order}</div>
-            <div className="location">Location: {location}</div>
+            <div className="name"><span className={styles.textformat}>Common Name:</span> {name}</div>
+            <div className="family"><span className={styles.textformat}>Family:</span> {family}</div>
+            <div className="order"><span className={styles.textformat}>Order:</span> {order}</div>
+            <div className="location"><span className={styles.textformat}>Location:</span> {location}</div>
           </div>
           <div className={styles.desc}>
             <div className="desc">
-              Description: <br />
+              <span className={styles.textformat}>Description:</span> <br />
               {desc}
             </div>
           </div>
         </div>
         <div className={styles.userinfo}>
-          <div className="author">By: {author}</div>
+          <div className="author"><span className={styles.textformat}>By:</span> {author}</div>
           <div className="date"> {formattedDate}</div>
         </div>
       </div>
