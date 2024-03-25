@@ -49,6 +49,7 @@ body{
     color: black;
     cursor: pointer;
 }
-.footer{
-  color: white;
+.footer{display: flex;
+  justify-content: center;
+  background-color: #ffed48;
 }
