@@ -51,6 +51,7 @@ function App() {
             order={item.order}
             location={item.location}
             author={item.author}
+            inDanger={item.inDanger}
             date={item.date}
           />
         ))}
