@@ -13,6 +13,7 @@ const Card = ({
   author,
   date,
   inDanger,
+  _id,
 }) => {
   let backgroundColorClass;
   switch (inDanger) {
@@ -34,19 +35,38 @@ const Card = ({
   const formattedDate = `${parsedDate.getDate()}/${
     parsedDate.getMonth() + 1
   }/${parsedDate.getFullYear()}`;
+
+  function sendreport() {
+    alert(`Post ${title} with ID:${_id} reported`)
+    fetch(`https://birdblogun-d42wh7ajma-vp.a.run.app/foroupload/${_id}`, {
+      method: "PATCH",
+    });
+  }
   return (
     <div className={`${styles.contcont} ${backgroundColorClass}`}>
       <div className={styles.container}>
-        <div className={styles.title}>{title}</div>
+        <div className={styles.titlecont}>
+          <div className={styles.blank}>‎‎‎</div>
+          <div className={styles.title}>{title}</div>
+          <div className={styles.report} onClick={sendreport}></div>
+        </div>
         <div className="imgcont">
           <img className={styles.img} src={imgurl} alt="img" />
         </div>
         <div className={styles.cardinfo}>
           <div className={styles.birdinfo}>
-            <div className="name"><span className={styles.textformat}>Common Name:</span> {name}</div>
-            <div className="family"><span className={styles.textformat}>Family:</span> {family}</div>
-            <div className="order"><span className={styles.textformat}>Order:</span> {order}</div>
-            <div className="location"><span className={styles.textformat}>Location:</span> {location}</div>
+            <div className="name">
+              <span className={styles.textformat}>Common Name:</span> {name}
+            </div>
+            <div className="family">
+              <span className={styles.textformat}>Family:</span> {family}
+            </div>
+            <div className="order">
+              <span className={styles.textformat}>Order:</span> {order}
+            </div>
+            <div className="location">
+              <span className={styles.textformat}>Location:</span> {location}
+            </div>
           </div>
           <div className={styles.desc}>
             <div className="desc">
@@ -56,7 +76,9 @@ const Card = ({
           </div>
         </div>
         <div className={styles.userinfo}>
-          <div className="author"><span className={styles.textformat}>By:</span> {author}</div>
+          <div className="author">
+            <span className={styles.textformat}>By:</span> {author}
+          </div>
           <div className="date"> {formattedDate}</div>
         </div>
       </div>

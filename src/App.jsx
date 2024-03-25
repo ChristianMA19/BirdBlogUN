@@ -60,6 +60,7 @@ function App() {
               author={item.author}
               inDanger={item.inDanger}
               date={item.date}
+              _id={item._id}
             />
           ))}
         </div>

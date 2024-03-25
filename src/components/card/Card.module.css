@@ -26,6 +26,21 @@
   border-radius: 0.5rem;
   background-color: rgb(228, 228, 228);
 }
+.titlecont{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.blank{
+  padding-right: 2rem;
+}
+.report{
+  background-image: url("../../assets/bandera.png");
+  background-size: contain;
+  height: 30px;
+  width: 30px;
+  cursor: pointer;
+}
 .title {
   display: flex;
   justify-content: center;
