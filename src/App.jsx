@@ -58,7 +58,7 @@ function App() {
       </div>
       <footer>
         <div>
-          <div>Created by: David Tache Christian Manga Daniel Diaz</div>
+          <div className={styles.footer}>Created by: David Tache Christian Manga Daniel Diaz</div>
         </div>
       </footer>
       </div>
