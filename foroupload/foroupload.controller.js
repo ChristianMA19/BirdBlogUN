@@ -34,3 +34,14 @@ export async function getpost(req, res) {
     console.error(err);
   }
 }
+
+export async function updatepost(req, res) {
+  try {
+    const idpost = req.params.idpost;
+    const resultado = await Posts.findByIdAndUpdate(idpost,{ $inc: { reportsCount: 1 } });
+    res.status(200).json(resultado);
+  } catch (err) {
+    res.status(500).json(err);
+    console.error(err);
+  }
+}

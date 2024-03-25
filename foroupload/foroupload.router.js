@@ -1,4 +1,4 @@
-import { createpost, getpost} from "./foroupload.controller.js";
+import { createpost, getpost, updatepost} from "./foroupload.controller.js";
 import {Router} from 'express';
 const router = Router();
 
@@ -9,7 +9,7 @@ router.get('/', getpost );
 router.post('/', createpost );
 
 // // Endpoint PATCH /prueba
-// router.patch('/:idpedidos', patchpedidos );
+router.patch('/:idpost', updatepost );
 
 // // Endpoint DELETE /prueba
 // router.delete('/:idpedidos', deletepedidos );
