@@ -175,6 +175,7 @@ const Upload = () => {
         
         document.getElementById("photoPreview").src = "";
         setSelectedFile(null);
+        window.location.reload();
       })
       .catch((error) => {
         console.error("Error:", error);
