@@ -40,6 +40,10 @@ const Card = ({
     alert(`Post ${title} with ID:${_id} reported`)
     fetch(`https://birdblogun-d42wh7ajma-vp.a.run.app/foroupload/${_id}`, {
       method: "PATCH",
+    }).then(response => {
+      window.location.reload();
+    }).catch(error => {
+      console.error("Error al enviar el reporte:", error);
     });
   }
   return (
