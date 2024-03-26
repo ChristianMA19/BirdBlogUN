@@ -1,0 +1,33 @@
+  .father{
+    color: black;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size: medium;
+  }
+  .containerizq {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin-inline: 1rem;
+  }
+  
+
+  .containerder {
+    display: flex;
+    flex-direction: column;
+    padding-top: 1.5rem;
+  }
+
+  .form{
+    display: flex;
+  }
+  
+  .enviar{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+  }
+
+  .img{
+    margin-left: 1rem;
+  }

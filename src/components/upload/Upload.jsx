@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from "react";
+import styles from "./Upload.module.css";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
+
+
 
 const Upload = () => {
   const [formData, setFormData] = useState({
@@ -179,120 +182,132 @@ const Upload = () => {
   };
 
   return (
-    <div>
-      <form id="form" onSubmit={handleSubmit}>
-        <progress value={uploadProgress} max="100">
-          {uploadProgress}%
-        </progress>
-        <br />
-        <br />
-        <label htmlFor="scientificName">Nombre cientifico:</label>
-        <br />
-        <input
-          type="text"
-          id="scientificName"
-          name="scientificName"
-          value={formData.scientificName}
-          onChange={handleInputChange}
-        />
-        {isSuggestionsVisible && (
-          <ul>
-            {scientificNameSuggestions.map((suggestion, index) => (
-              <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
-                {suggestion}
-              </li>
-            ))}
-          </ul>
-        )}
-        <br />
-        <br />
-        <br />
-        <label htmlFor="commonName">Nombre comun:</label>
-        <br />
-        <input
-          type="text"
-          id="commonName"
-          name="commonName"
-          value={formData.commonName}
-          onChange={handleInputChange}
-        />
-        <br />
-        <br />
-        <label htmlFor="author">Autor:</label>
-        <br />
-        <input
-          type="text"
-          id="author"
-          name="author"
-          value={formData.author}
-          onChange={handleInputChange}
-        />
-        <br />
-        <br />
-        <label htmlFor="location">Ubicacion:</label>
-        <br />
-        <input
-          type="text"
-          id="location"
-          name="location"
-          value={formData.location}
-          onChange={handleInputChange}
-        />
-        <br />
-        <br />
-        <label htmlFor="family">Familia:</label>
-        <br />
-        <input
-          type="text"
-          id="family"
-          name="family"
-          value={formData.family}
-          onChange={handleInputChange}
-        />
-        <br />
-        <br />
-        <label htmlFor="order">Orden:</label>
-        <br />
-        <input
-          type="text"
-          id="order"
-          name="order"
-          value={formData.order}
-          onChange={handleInputChange}
-        />
-        <br />
-        <br />
-        <label htmlFor="description">Descripcion:</label>
-        <br />
-        <input
-          type="text"
-          id="description"
-          name="description"
-          value={formData.description}
-          onChange={handleInputChange}
-        />
-        <br />
-        <br />
-        <img
-          id="photoPreview"
-          src={selectedFile ? URL.createObjectURL(selectedFile) : ""}
-          alt="Photo Preview"
-          style={{ maxWidth: "200px" }}
-        />
-        <br />
-        <br />
-        <input
-          ref={fileInputRef}
-          id="photo"
-          className="file"
-          type="file"
-          name="mainimage"
-        />
-        <br />
-        <br />
-        <button id="submit" type="submit" name="button" disabled>
-          Subir
-        </button>
+    <div className={styles.father}>
+      <form id="form" className={styles.form} onSubmit={handleSubmit}>
+        <div className={styles.containerizq}>
+          <div>
+            <label htmlFor="scientificName">Scientific name:</label>
+            <br />
+            <input
+              type="text"
+              id="scientificName"
+              name="scientificName"
+              value={formData.scientificName}
+              onChange={handleInputChange}
+            />
+            {isSuggestionsVisible && (
+              <ul>
+                {scientificNameSuggestions.map((suggestion, index) => (
+                  <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
+                    {suggestion}
+                  </li>
+                ))}
+              </ul>
+            )}
+            <br />
+          </div>
+          <div>
+            <label htmlFor="commonName">Common name:</label>
+            <br />
+            <input
+              type="text"
+              id="commonName"
+              name="commonName"
+              value={formData.commonName}
+              onChange={handleInputChange}
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="author">Author:</label>
+            <br />
+            <input
+              type="text"
+              id="author"
+              name="author"
+              value={formData.author}
+              onChange={handleInputChange}
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="location">Location:</label>
+            <br />
+            <input
+              type="text"
+              id="location"
+              name="location"
+              value={formData.location}
+              onChange={handleInputChange}
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="family">Family:</label>
+            <br />
+            <input
+              type="text"
+              id="family"
+              name="family"
+              value={formData.family}
+              onChange={handleInputChange}
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="order">Order:</label>
+            <br />
+            <input
+              type="text"
+              id="order"
+              name="order"
+              value={formData.order}
+              onChange={handleInputChange}
+              />
+          </div>
+          <div>
+            <label htmlFor="description">Description:</label>
+            <br />
+            <input
+              type="text"
+              id="description"
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+            />
+          </div>
+        </div>
+        <div className={styles.containerder}>
+        <div className={styles.img}>
+          <img
+            id="photoPreview"
+            src={selectedFile ? URL.createObjectURL(selectedFile) : "https://cdn.discordapp.com/attachments/746881770762534912/1222256984489988136/image.png?ex=66158e85&is=66031985&hm=e684d552097b86eee3eae025cf9b9dac8bb639510e0b04841c1763f0503ad30c&"}
+            alt="Photo Preview"
+            style={{ maxWidth: "200px" }}
+          />
+        </div>
+          <div className={styles.file}>
+            <input
+              ref={fileInputRef}
+              id="photo"
+              className="file"
+              type="file"
+              name="mainimage"
+            />
+          </div>
+          <div className={styles.enviar}>
+            <div className={styles.upload}>
+              <progress value={uploadProgress} max="100">
+                {uploadProgress}%
+              </progress>
+            </div>
+            <div>
+              <button id="submit" type="submit" name="button" disabled>
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
       </form>
     </div>
   );

@@ -11,7 +11,9 @@
 }
 
 .modal-content {
-  background: white;
+  background-image: url("../../assets/modal.jpeg");
+  background-size: cover;
+  border: black solid 0.12rem;
   padding: 20px;
   border-radius: 5px;
 }
