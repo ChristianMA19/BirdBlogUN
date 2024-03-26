@@ -38,10 +38,19 @@ export async function getpost(req, res) {
 export async function updatepost(req, res) {
   try {
     const idpost = req.params.idpost;
-    const resultado = await Posts.findByIdAndUpdate(idpost,{ $inc: { reportsCount: 1 } });
+    const resultado = await Posts.findByIdAndUpdate(idpost, [
+      { $set: { reportsCount: { $add: ["$reportsCount", 1] } } },
+      { 
+        $set: { 
+          isDisable: { $cond: { if: { $gte: ["$reportsCount", 10] }, then: true, else: false } }
+        } 
+      }
+    ],{ new: true });
     res.status(200).json(resultado);
   } catch (err) {
     res.status(500).json(err);
     console.error(err);
   }
 }
+
+
