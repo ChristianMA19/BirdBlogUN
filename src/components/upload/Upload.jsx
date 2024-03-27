@@ -269,7 +269,7 @@ const Upload = () => {
           <div>
             <label htmlFor="description">Description:</label>
             <br />
-            <input
+            <textarea
               type="text"
               id="description"
               name="description"
