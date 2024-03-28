@@ -16,13 +16,6 @@ const config = {
 };
 firebase.initializeApp(config);
 
-const link = document.createElement('link');
-link.rel = 'icon';
-link.type = 'image/png';
-link.href = 'src/assets/robin.png'; 
-document.head.appendChild(link);
-
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <App />
