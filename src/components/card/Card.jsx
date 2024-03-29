@@ -55,7 +55,7 @@ const Card = ({
           <div className={styles.report} onClick={sendreport}></div>
         </div>
         <div className="imgcont">
-          <img className={styles.img} src={imgurl} alt="img" />
+          <img className={styles.img} loading="lazy" src={imgurl} alt="img" />
         </div>
         <div className={styles.cardinfo}>
           <div className={styles.birdinfo}>
