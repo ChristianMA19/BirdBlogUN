@@ -11,7 +11,7 @@
 }
 
 .info_content {
-  background-image: url("../../assets/bg.jpg");
+  background-color: #dac276;
   background-size: cover;
   border: black solid 0.12rem;
   padding: 20px;
