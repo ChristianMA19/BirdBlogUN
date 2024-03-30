@@ -16,6 +16,8 @@
   border: black solid 0.12rem;
   padding: 20px;
   border-radius: 5px;
+  overflow-y: auto;
+  max-height: 92vh;
 }
 
 .close_button {
