@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import styles from "./Upload.module.css";
 import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
-
+import Resizer from "react-image-file-resizer";
 
 
 const Upload = () => {
@@ -83,45 +83,58 @@ const Upload = () => {
     document.getElementById("photoPreview").src = objectUrl;
   };
 
-  const uploadPhoto = (photo) => {
-    const name = "123" + Date.now();
-    const storageRef = firebase.storage().ref("/images/" + name);
-    const uploadTask = storageRef.put(photo);
-
-    uploadTask.on(
-      "state_changed",
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setUploadProgress(progress);
-
-        switch (snapshot.state) {
-          case firebase.storage.TaskState.PAUSED:
-            console.log("Upload is paused");
-            break;
-          case firebase.storage.TaskState.RUNNING:
-            console.log("Upload is running");
-            break;
-        }
-      },
-      (error) => {
-        console.log(error);
-      },
-      () => {
-        uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-          console.log("File available at", downloadURL);
-
-          // Update form data with the download URL
-          setFormData((prevData) => ({
-            ...prevData,
-            urlPhoto: downloadURL,
-          }));
-        });
-        // Enable the submit button
-        document.getElementById("submit").removeAttribute("disabled");
-      }
+  const resizeFile = (file) => new Promise(resolve => {
+    Resizer.imageFileResizer(file, 600, 600, 'JPEG', 80, 0,
+        uri => {
+            resolve(uri);
+        },
+        'base64'
     );
-  };
+});
+
+const uploadPhoto = (photo) => {
+    resizeFile(photo).then(resizedPhoto => {
+        const name = "123" + Date.now();
+        const storageRef = firebase.storage().ref("/images/" + name);
+        const uploadTask = storageRef.putString(resizedPhoto, 'data_url');
+
+        uploadTask.on(
+            "state_changed",
+            (snapshot) => {
+                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                setUploadProgress(progress);
+
+                switch (snapshot.state) {
+                    case firebase.storage.TaskState.PAUSED:
+                        console.log("Upload is paused");
+                        break;
+                    case firebase.storage.TaskState.RUNNING:
+                        console.log("Upload is running");
+                        break;
+                }
+            },
+            (error) => {
+                console.log(error);
+            },
+            () => {
+                uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+                    console.log("File available at", downloadURL);
+
+                    // Update form data with the download URL
+                    setFormData((prevData) => ({
+                        ...prevData,
+                        urlPhoto: downloadURL,
+                    }));
+                });
+                // Enable the submit button
+                document.getElementById("submit").removeAttribute("disabled");
+            }
+        );
+    }).catch(error => {
+        console.log("Error resizing photo:", error);
+    });
+};
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
