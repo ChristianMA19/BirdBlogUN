@@ -11,7 +11,7 @@
 }
 
 .info_content {
-  background-color: #dac276;
+  background: #FCE5C1;
   background-size: cover;
   border: black solid 0.12rem;
   padding: 20px;
@@ -39,7 +39,7 @@
   align-items: center;
 }
 .dangerLevel0 {
-  color: rgb(110, 253, 91);
+  color: rgb(89, 204, 74);;
 }
 .dangerLevel1 {
   color: rgb(177, 44, 44);
