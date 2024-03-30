@@ -1,8 +1,8 @@
-body{
+body {
   margin: 0;
   padding: 0;
 }
-.main{
+.main {
   background-image: url("./assets/bg1aves.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -32,24 +32,40 @@ body{
   display: flex;
   justify-content: center;
 }
-.title{
-    font-size: xx-large;
+.title {
+  font-size: xx-large;
 }
-.img{
+.img {
   padding: 1rem;
   height: 35px;
   width: 35px;
 }
-.uploadB{
-    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-    font-size: x-large;
-    font-weight: lighter;
-    background-color: greenyellow;
-    color: black;
-    cursor: pointer;
-    border-radius: 0.5rem;
+.uploadB {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  font-size: x-large;
+  font-weight: lighter;
+  background-color: greenyellow;
+  color: black;
+  cursor: pointer;
+  border-radius: 0.5rem;
 }
-.footer{display: flex;
+
+.infoB {
+  height: 32px;
+  width: 32px;
+  background-image: url("https://cdn.discordapp.com/attachments/746881770762534912/1223443748407476274/informacion.png?ex=6619dfc8&is=66076ac8&hm=18872c13144402d381f8def8f2d8092ee35348cadc96b13a99f80acab59bfb89&");
+  background-size: cover;
+  border-radius: 1.5rem;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin: 20px; 
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.footer {
+  display: flex;
   justify-content: center;
   background-color: #ffed48;
 }
@@ -58,25 +74,25 @@ body{
   .header {
     flex-direction: row;
     text-align: center;
-    padding: 0.5rem; 
+    padding: 0.5rem;
   }
 
   .hcont {
-    width: auto; 
-    margin-block: 0.5rem; 
+    width: auto;
+    margin-block: 0.5rem;
   }
 
   .title {
-    font-size: larger; 
+    font-size: larger;
   }
 
   .img {
-    height: 25px; 
-    width: 25px; 
+    height: 25px;
+    width: 25px;
   }
 
   .uploadB {
-    font-size: medium; 
-    padding: 0.3rem 0.8rem; 
+    font-size: medium;
+    padding: 0.3rem 0.8rem;
   }
 }

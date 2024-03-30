@@ -1,4 +1,4 @@
-.modal-overlay {
+.info_overlay {
   position: fixed;
   top: 0;
   left: 0;
@@ -10,7 +10,7 @@
   align-items: center;
 }
 
-.modal-content {
+.info_content {
   background-image: url("../../assets/bg.jpg");
   background-size: cover;
   border: black solid 0.12rem;
@@ -18,20 +18,43 @@
   border-radius: 5px;
 }
 
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+.information {
+  font-family: "Courier New", Courier, monospace;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+.colorinfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.dangerLevel0 {
+  color: rgb(110, 253, 91);
+}
+.dangerLevel1 {
+  color: rgb(177, 44, 44);
+}
+.dangerLevel2 {
+  color: rgb(30, 30, 30);
+}
 .close_button {
   position: relative;
-  height: 32px;
-  width: 32px;
+  height: 28px;
+  width: 28px;
   background-image: url("https://cdn.discordapp.com/attachments/746881770762534912/1223450124806787252/boton-eliminar.png?ex=6619e5b8&is=660770b8&hm=9b2e1db7bc08fb56349b0e6f95ec3018e565b1814bda4c57b9e459aca7f6892a&");
   background-size: cover;
   top: 0;
-  left: 93%;
+  left: 90%;
   cursor: pointer;
   border-radius: 1.5rem;
-}
-
-@media screen and (max-width: 768px) {
-  .close_button{
-    left: 90%;
-  }
 }
