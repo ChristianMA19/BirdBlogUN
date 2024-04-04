@@ -61,8 +61,15 @@ export async function updatepostname(req, res) {
   try {
     const idpost = req.params.idpost;
     const newScientificName = req.body.scientificName; 
+    let inDangernew;
+    try {
+      const redListResponse = await axios.get("https://birdblogun-d42wh7ajma-vp.a.run.app/suggestions/redlist/" + newScientificName);
+      inDangernew = redListResponse.data;
+    } catch (error) {
+      inDangernew = 4;
+    }  
 
-    const resultado = await Posts.findByIdAndUpdate(idpost, { scientificName: newScientificName }, { new: true });
+    const resultado = await Posts.findByIdAndUpdate(idpost, { scientificName: newScientificName , inDanger: inDangernew}, { new: true });
 
     res.status(200).json(resultado);
   } catch (err) {
