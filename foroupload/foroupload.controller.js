@@ -13,8 +13,12 @@ export async function createpost(req, res) {
       post.isDisable=true;
     }
     //get endanger
-    const redListResponse = await axios.get("https://birdblogun-d42wh7ajma-vp.a.run.app/suggestions/redlist/" + post.scientificName);
-    post.inDanger=redListResponse.data;
+    try {
+      const redListResponse = await axios.get("https://birdblogun-d42wh7ajma-vp.a.run.app/suggestions/redlist/" + post.scientificName);
+      post.inDanger = redListResponse.data;
+    } catch (error) {
+      post.inDanger = 4;
+    }    
     const postup = new Posts(post);
     const resultado = await postup.save();
     res.status(200).json(resultado);
@@ -53,4 +57,16 @@ export async function updatepost(req, res) {
   }
 }
 
+export async function updatepostname(req, res) {
+  try {
+    const idpost = req.params.idpost;
+    const newScientificName = req.body.scientificName; 
 
+    const resultado = await Posts.findByIdAndUpdate(idpost, { scientificName: newScientificName }, { new: true });
+
+    res.status(200).json(resultado);
+  } catch (err) {
+    res.status(500).json(err);
+    console.error(err);
+  }
+}
