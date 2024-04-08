@@ -25,6 +25,7 @@
   font-family: "Courier New", Courier, monospace;
   display: flex;
   justify-content: center;
+  text-align: justify;
 }
 .information {
   font-family: "Courier New", Courier, monospace;
