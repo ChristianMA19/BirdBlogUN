@@ -42,7 +42,7 @@ function App() {
           <div className={styles.hcont}>
             <img
               className={styles.img}
-              src="https://cdn.discordapp.com/attachments/746881770762534912/1221598863052374197/robin.png?ex=66132999&is=6600b499&hm=7d7b8b577457c669024caa3797b61c7a1e95a7469e1c30509969a4415a920b63&"
+              src="/src/assets/robin.png"
               alt="Logo"
             />
           </div>
