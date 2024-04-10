@@ -295,7 +295,7 @@ const uploadPhoto = (photo) => {
         <div className={styles.img}>
           <img
             id="photoPreview"
-            src={selectedFile ? URL.createObjectURL(selectedFile) : "https://cdn.discordapp.com/attachments/746881770762534912/1222256984489988136/image.png?ex=66158e85&is=66031985&hm=e684d552097b86eee3eae025cf9b9dac8bb639510e0b04841c1763f0503ad30c&"}
+            src={selectedFile ? URL.createObjectURL(selectedFile) : "https://firebasestorage.googleapis.com/v0/b/aves-a1081.appspot.com/o/images%2Fimage1.png?alt=media&token=c70e4b58-56bc-4493-afa2-a04e3e109f1c"}
             alt="Photo Preview"
             style={{ maxWidth: "200px" }}
           />

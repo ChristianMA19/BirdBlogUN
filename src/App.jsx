@@ -42,7 +42,7 @@ function App() {
           <div className={styles.hcont}>
             <img
               className={styles.img}
-              src="https://cdn.discordapp.com/attachments/746881770762534912/1221598863052374197/robin.png?ex=66132999&is=6600b499&hm=7d7b8b577457c669024caa3797b61c7a1e95a7469e1c30509969a4415a920b63&"
+              src="https://firebasestorage.googleapis.com/v0/b/aves-a1081.appspot.com/o/images%2Fimage2.png?alt=media&token=8875b161-118d-4661-b3c4-0fb3f932eff1"
               alt="Logo"
             />
           </div>
