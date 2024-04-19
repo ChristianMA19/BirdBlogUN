@@ -53,7 +53,7 @@ body {
 .infoB {
   height: 32px;
   width: 32px;
-  background-image: url("src/assets/informacion.png");
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/aves-a1081.appspot.com/o/images%2Finformacion.png?alt=media&token=6c326824-5311-4844-8247-40457a6570ef");
   background-size: cover;
   border-radius: 1.5rem;
   position: fixed;
