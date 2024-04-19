@@ -24,7 +24,7 @@
   position: relative;
   height: 32px;
   width: 32px;
-  background-image: url("https://cdn.discordapp.com/attachments/746881770762534912/1223450124806787252/boton-eliminar.png?ex=6619e5b8&is=660770b8&hm=9b2e1db7bc08fb56349b0e6f95ec3018e565b1814bda4c57b9e459aca7f6892a&");
+  background-image: url("src/assets/boton-eliminar.png");
   background-size: cover;
   top: 0;
   left: 93%;
