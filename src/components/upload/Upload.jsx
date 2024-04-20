@@ -4,7 +4,6 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/storage";
 import Resizer from "react-image-file-resizer";
 
-
 const Upload = () => {
   const [formData, setFormData] = useState({
     scientificName: "",
@@ -18,7 +17,9 @@ const Upload = () => {
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
-  const [scientificNameSuggestions, setScientificNameSuggestions] = useState([]);
+  const [scientificNameSuggestions, setScientificNameSuggestions] = useState(
+    []
+  );
   const [isSuggestionsVisible, setIsSuggestionsVisible] = useState(false);
 
   // Use useRef for file input
@@ -35,13 +36,15 @@ const Upload = () => {
         photoInput.removeEventListener("change", handleFileChange);
       };
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []); // Empty dependency array ensures the effect runs once after initial render
 
   useEffect(() => {
     const fetchSuggestions = async () => {
       try {
-        const response = await fetch(`https://birdblogun-d42wh7ajma-vp.a.run.app/suggestions/scientific/${formData.scientificName}`);
+        const response = await fetch(
+          `https://birdblogun-d42wh7ajma-vp.a.run.app/suggestions/scientific/${formData.scientificName}`
+        );
         if (response.ok) {
           const data = await response.json();
           setScientificNameSuggestions(data);
@@ -83,58 +86,67 @@ const Upload = () => {
     document.getElementById("photoPreview").src = objectUrl;
   };
 
-  const resizeFile = (file) => new Promise(resolve => {
-    Resizer.imageFileResizer(file, 600, 600, 'JPEG', 80, 0,
-        uri => {
-            resolve(uri);
+  const resizeFile = (file) =>
+    new Promise((resolve) => {
+      Resizer.imageFileResizer(
+        file,
+        600,
+        600,
+        "JPEG",
+        80,
+        0,
+        (uri) => {
+          resolve(uri);
         },
-        'base64'
-    );
-});
+        "base64"
+      );
+    });
 
-const uploadPhoto = (photo) => {
-    resizeFile(photo).then(resizedPhoto => {
+  const uploadPhoto = (photo) => {
+    resizeFile(photo)
+      .then((resizedPhoto) => {
         const name = "123" + Date.now();
         const storageRef = firebase.storage().ref("/images/" + name);
-        const uploadTask = storageRef.putString(resizedPhoto, 'data_url');
+        const uploadTask = storageRef.putString(resizedPhoto, "data_url");
 
         uploadTask.on(
-            "state_changed",
-            (snapshot) => {
-                const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                setUploadProgress(progress);
+          "state_changed",
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            setUploadProgress(progress);
 
-                switch (snapshot.state) {
-                    case firebase.storage.TaskState.PAUSED:
-                        console.log("Upload is paused");
-                        break;
-                    case firebase.storage.TaskState.RUNNING:
-                        console.log("Upload is running");
-                        break;
-                }
-            },
-            (error) => {
-                console.log(error);
-            },
-            () => {
-                uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
-                    console.log("File available at", downloadURL);
-
-                    // Update form data with the download URL
-                    setFormData((prevData) => ({
-                        ...prevData,
-                        urlPhoto: downloadURL,
-                    }));
-                });
-                // Enable the submit button
-                document.getElementById("submit").removeAttribute("disabled");
+            switch (snapshot.state) {
+              case firebase.storage.TaskState.PAUSED:
+                console.log("Upload is paused");
+                break;
+              case firebase.storage.TaskState.RUNNING:
+                console.log("Upload is running");
+                break;
             }
-        );
-    }).catch(error => {
-        console.log("Error resizing photo:", error);
-    });
-};
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            uploadTask.snapshot.ref.getDownloadURL().then((downloadURL) => {
+              console.log("File available at", downloadURL);
 
+              // Update form data with the download URL
+              setFormData((prevData) => ({
+                ...prevData,
+                urlPhoto: downloadURL,
+              }));
+            });
+            // Enable the submit button
+            document.getElementById("submit").removeAttribute("disabled");
+          }
+        );
+      })
+      .catch((error) => {
+        console.log("Error resizing photo:", error);
+      });
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -156,7 +168,7 @@ const uploadPhoto = (photo) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     // Enviar datos del formulario al servidor
     fetch("https://birdblogun-d42wh7ajma-vp.a.run.app/foroupload/", {
       method: "POST",
@@ -185,7 +197,7 @@ const uploadPhoto = (photo) => {
         });
         // Disable the submit button again
         document.getElementById("submit").setAttribute("disabled", "true");
-        
+
         document.getElementById("photoPreview").src = "";
         setSelectedFile(null);
         window.location.reload();
@@ -212,7 +224,10 @@ const uploadPhoto = (photo) => {
             {isSuggestionsVisible && (
               <ul>
                 {scientificNameSuggestions.map((suggestion, index) => (
-                  <li key={index} onClick={() => handleSuggestionClick(suggestion)}>
+                  <li
+                    key={index}
+                    onClick={() => handleSuggestionClick(suggestion)}
+                  >
                     {suggestion}
                   </li>
                 ))}
@@ -231,7 +246,7 @@ const uploadPhoto = (photo) => {
               onChange={handleInputChange}
             />
           </div>
-          
+
           <div>
             <label htmlFor="author">Author:</label>
             <br />
@@ -243,7 +258,7 @@ const uploadPhoto = (photo) => {
               onChange={handleInputChange}
             />
           </div>
-          
+
           <div>
             <label htmlFor="location">Location:</label>
             <br />
@@ -255,7 +270,7 @@ const uploadPhoto = (photo) => {
               onChange={handleInputChange}
             />
           </div>
-          
+
           <div>
             <label htmlFor="family">Family:</label>
             <br />
@@ -267,7 +282,7 @@ const uploadPhoto = (photo) => {
               onChange={handleInputChange}
             />
           </div>
-          
+
           <div>
             <label htmlFor="order">Order:</label>
             <br />
@@ -277,7 +292,7 @@ const uploadPhoto = (photo) => {
               name="order"
               value={formData.order}
               onChange={handleInputChange}
-              />
+            />
           </div>
           <div>
             <label htmlFor="description">Description:</label>
@@ -292,14 +307,18 @@ const uploadPhoto = (photo) => {
           </div>
         </div>
         <div className={styles.containerder}>
-        <div className={styles.img}>
-          <img
-            id="photoPreview"
-            src={selectedFile ? URL.createObjectURL(selectedFile) : "https://firebasestorage.googleapis.com/v0/b/aves-a1081.appspot.com/o/images%2Fimage1.png?alt=media&token=c70e4b58-56bc-4493-afa2-a04e3e109f1c"}
-            alt="Photo Preview"
-            style={{ maxWidth: "200px" }}
-          />
-        </div>
+          <div className={styles.img}>
+            <img
+              id="photoPreview"
+              src={
+                selectedFile
+                  ? URL.createObjectURL(selectedFile)
+                  : "https://firebasestorage.googleapis.com/v0/b/aves-a1081.appspot.com/o/images%2Fimage1.png?alt=media&token=c70e4b58-56bc-4493-afa2-a04e3e109f1c"
+              }
+              alt="Photo Preview"
+              style={{ maxWidth: "200px" }}
+            />
+          </div>
           <div className={styles.file}>
             <input
               ref={fileInputRef}

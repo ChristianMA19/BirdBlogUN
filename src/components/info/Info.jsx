@@ -28,7 +28,7 @@ const Info = ({ onClose, data }) => {
           <br />
           Created By:
           <br />
-          David Tache - Christan Manga - Daniel Diaz
+          David Tache - Christan Manga - Daniel Diaz - Nefer Medina
         </div>
       </div>
     </div>

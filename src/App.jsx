@@ -3,6 +3,7 @@ import Modal from "./components/modal"; // Adjust the path based on your project
 import Card from "./components/card";
 import styles from "./App.module.css";
 import Info from "./components/info";
+import Edit from "./components/Edit";
 
 function App() {
   const [isModalVisible, setModalVisible] = useState(false);
@@ -61,6 +62,7 @@ function App() {
         
         {isModalVisible && <Modal onClose={handleCloseModal} />}
         {isInfoVisible && <Info onClose={handleCloseInfo} data={data} />}
+        
         <div className={styles.card_container}>
           {data.map((item, index) => (
             <Card
@@ -82,7 +84,7 @@ function App() {
         <footer>
           <div>
             <div className={styles.footer}>
-              Created by: David Tache | Christian Manga | Daniel Diaz
+              Created by: David Tache | Christian Manga | Daniel Diaz | Nefer Medina
             </div>
           </div>
         </footer>
